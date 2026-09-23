@@ -1,0 +1,139 @@
+<!--
+  House-style artifact template. Copy the <style> block and page skeleton below into
+  the new artifact file, then adapt — do not publish this file verbatim.
+
+  What to change per artifact (read SKILL.md for the full rules):
+  - --accent / --accent-soft: pick ONE hue that fits the subject, not always the same one.
+    Stay in a warm-neutral-compatible family: teal, copper/amber, muted indigo, sage, rust.
+    Recompute the dark-mode --accent too (lighter/more saturated so it still reads on dark).
+  - Add "Fraunces" (or a similar serif) to the Google Fonts link and to h1/h2/.node ONLY if
+    the subject reads as a report or investigation. Skip it for a dashboard-like page.
+  - Include only the components the content actually needs. A short update doesn't need a
+    stats strip; a non-sequential set of findings doesn't need .trail/.node.
+  - Populate every card, stat, and table with real content. Never lorem, never a structure
+    the content doesn't support.
+-->
+<title>Replace With A Real Name</title>
+<style>
+  :root {
+    --bg: #f7f4ee; --surface: #ffffff; --surface-2: #efe9dc; --ink: #211d16; --muted: #6f6656; --line: #e2dac8;
+    --accent: #9a5a1a; /* PICK PER SUBJECT */ --accent-soft: #f3e3d0;
+    --good: #3d7a4f; --good-soft: #e3f0e6; --warn: #a8720f; --warn-soft: #f7ecd6; --bad: #a8402f; --bad-soft: #f6e0db;
+    --shadow: 0 1px 2px rgba(33,29,22,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16130e; --surface: #1e1a13; --surface-2: #262019; --ink: #f1ece0; --muted: #a89a80; --line: #362e22;
+      --accent: #e0a25b; /* lighter/more saturated twin of the light accent */ --accent-soft: #3a2a17;
+      --good: #7ecb8f; --good-soft: #1e3324; --warn: #eac06b; --warn-soft: #3a2d14; --bad: #ec9184; --bad-soft: #3d211c;
+      --shadow: 0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16130e; --surface: #1e1a13; --surface-2: #262019; --ink: #f1ece0; --muted: #a89a80; --line: #362e22;
+    --accent: #e0a25b; --accent-soft: #3a2a17;
+    --good: #7ecb8f; --good-soft: #1e3324; --warn: #eac06b; --warn-soft: #3a2d14; --bad: #ec9184; --bad-soft: #3d211c;
+    --shadow: 0 1px 2px rgba(0,0,0,.4);
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); line-height: 1.55; margin: 0;
+         font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .mono, code { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+  code { background: var(--surface-2); padding: 1px 6px; border-radius: 3px; font-size: 12.5px; }
+  .page { max-width: 760px; margin: 0 auto; padding: 44px 16px 72px; }
+  .muted { color: var(--muted); } .small { font-size: 12.5px; }
+
+  /* Masthead: eyebrow -> h1 -> one thesis paragraph -> meta row */
+  .masthead { padding-block: 4px 28px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase;
+             color: var(--accent); margin: 0 0 12px; }
+  h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 700; letter-spacing: -.01em;
+       text-wrap: balance; margin: 0 0 14px; }
+  /* Optional serif treatment -- add the font link and uncomment when the subject calls for it:
+  h1, h2, .node { font-family: "Fraunces", Georgia, serif; font-optical-sizing: auto; }
+  */
+  .thesis { font-size: 16px; color: var(--muted); max-width: 62ch; margin: 0; }
+  .meta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; font-size: 12.5px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  /* Stats strip: 3-4 big-number tiles. Omit this block entirely if there's nothing worth a headline number. */
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; padding-block: 26px; }
+  .stat { flex: 1 1 145px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .stat b { display: block; font-family: "IBM Plex Mono", monospace; font-size: 26px; line-height: 1.1; font-weight: 600; }
+  .stat span { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
+
+  /* Numbered trail connector -- use ONLY for genuinely sequential content (a real investigation/timeline).
+     Otherwise drop .trail/.node and use plain <section>/<h2> instead of numbered .finding/.card pairs. */
+  .trail { position: relative; padding-block: 8px 4px; }
+  .trail::before { content: ""; position: absolute; left: 21px; top: 8px; bottom: 4px; width: 2px; background: var(--line); }
+  .finding { position: relative; padding: 0 0 34px 58px; }
+  .finding:last-child { padding-bottom: 4px; }
+  .node { position: absolute; left: 0; top: 2px; width: 44px; height: 44px; border-radius: 50%; background: var(--surface);
+          border: 2px solid var(--line); display: flex; align-items: center; justify-content: center;
+          font-weight: 700; font-size: 17px; color: var(--muted); z-index: 1; }
+  /* One modifier class per real status this subject has -- name them for what they mean, not generically:
+  .finding.done .node, .pill.done { border-color: var(--good); color: var(--good); background: var(--good-soft); }
+  .finding.blocked .node, .pill.blocked { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
+  .finding.open .node, .pill.open { border-color: var(--line); color: var(--muted); background: var(--surface-2); }
+  */
+
+  /* Card: the base content unit, with or without the trail. */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; box-shadow: var(--shadow); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .card h2 { font-size: 19px; font-weight: 700; margin: 0; text-wrap: balance; }
+  .pill { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .02em;
+          padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+  .card p { margin: 0 0 10px; font-size: 14.5px; } .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 0 0 10px; padding-left: 20px; } .card li { margin-bottom: 5px; font-size: 14.5px; }
+
+  /* Evidence block: key/value pairs citing something concrete (a number, a commit, a file). */
+  .ev { background: var(--surface-2); border-radius: 6px; padding: 12px 14px; margin: 10px 0; font-size: 13px; }
+  .ev-row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px dashed var(--line); }
+  .ev-row:last-child { border-bottom: none; }
+  .ev-row span { color: var(--muted); } .ev-row b { font-family: "IBM Plex Mono", monospace; font-weight: 600; }
+
+  /* Callout: reserve for ONE key insight per section, not a general highlight box. */
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 6px 6px 0;
+             padding: 10px 14px; margin: 10px 0; font-size: 13.5px; }
+
+  .tablewrap { overflow-x: auto; margin: 10px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 420px; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 11px; letter-spacing: .03em; text-transform: uppercase; }
+  td.n { font-family: "IBM Plex Mono", monospace; white-space: nowrap; }
+
+  /* Footer: always state what's excluded when real/sensitive data underlies the page. */
+  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+  @media (max-width: 480px) { .finding { padding-left: 48px; } .node { width: 36px; height: 36px; font-size: 14px; } .trail::before { left: 17px; } }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- If using the optional serif heading treatment, replace the link above with one that also pulls the serif family. -->
+
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">Project / Area Name</p>
+    <h1>A Real, Specific Title</h1>
+    <p class="thesis">One paragraph: what this page documents, why it exists now, and what the reader should walk
+      away knowing. Ground it in real specifics, not a generic summary.</p>
+    <div class="meta"><span><b>Date</b></span><span>Private status note if relevant</span></div>
+  </header>
+
+  <!-- Stats strip: only if there are 3-4 real headline numbers worth leading with -->
+  <div class="stats">
+    <div class="stat"><b>0</b><span>caption</span></div>
+  </div>
+
+  <!-- Plain sectioned content (default) -->
+  <section>
+    <div class="card">
+      <div class="card-head"><h2>Section title</h2><span class="pill">status</span></div>
+      <p>Real content.</p>
+    </div>
+  </section>
+
+  <footer>
+    What this page includes/excludes, and why. Date. Sourcing note if relevant.
+  </footer>
+</div>
