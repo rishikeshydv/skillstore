@@ -1,0 +1,14 @@
+interface:
+  display_name: Repository Cleanup
+  short_description: Safely inspect and clean up a code repository.
+  default_prompt: Use /cleanup to inspect this repository, apply safe cleanup improvements,
+    and report remaining open-source readiness work.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
