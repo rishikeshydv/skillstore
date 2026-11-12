@@ -1,0 +1,11 @@
+interface:
+  display_name: Architecture Proposal
+  short_description: Choose a One-Pager, HLD, LLD or all three. Draft and review LG Ad Solutions-branded architecture documents.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+  brand_color: '#FD312E'
+policy:
+  products:
+  - chatgpt
+  - codex
+  allow_implicit_invocation: true

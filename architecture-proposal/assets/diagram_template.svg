@@ -1,0 +1,74 @@
+<!--
+  diagram_template.svg — vertical flow diagram, plain proposal style.
+
+  Copy this, replace the labels, add or remove rows. Conventions:
+    canvas          920 wide; height grows with the number of rows
+    centre column   x=335 w=250, centred on x=460
+    row pitch       ~94px (box 48 tall + 46 gap); the arrow fills the gap
+    side boxes      left margin x=40..300, right margin x=650..880
+    type            13.5px inside boxes, 12px for edge labels
+    fill/stroke     #EEEEEE on #666666; white sub-boxes; dashed #8C8C8C
+                    for anything optional or for a feedback path
+
+  Keep a box's longest label under ~34 characters or widen the box:
+  roughly 7.3px per character at 13.5px.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="620" viewBox="0 0 920 620"
+     font-family="Helvetica, Arial, sans-serif">
+<rect width="920" height="620" fill="#FFFFFF"/>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M1 1 L9 5 L1 9" fill="none" stroke="#4D4D4D" stroke-width="1.4"/>
+</marker>
+</defs>
+
+<!-- boxes: three sources fanning into one entry point, then a spine -->
+<g fill="#EEEEEE" stroke="#666666" stroke-width="1.1">
+  <rect x="105" y="30" width="205" height="52" rx="2"/>
+  <rect x="357" y="30" width="205" height="52" rx="2"/>
+  <rect x="609" y="30" width="205" height="52" rx="2"/>
+  <rect x="335" y="146" width="250" height="54" rx="2"/>
+  <rect x="335" y="340" width="250" height="48" rx="2"/>
+  <rect x="335" y="434" width="250" height="56" rx="2"/>
+  <rect x="650" y="434" width="230" height="56" rx="2"/>
+</g>
+
+<!-- a cylinder: body rect, two side lines, bottom ellipse, top ellipse -->
+<g fill="#EEEEEE" stroke="#666666" stroke-width="1.1">
+  <rect x="355" y="242" width="210" height="52" fill="#EEEEEE" stroke="none"/>
+  <line x1="355" y1="242" x2="355" y2="294"/><line x1="565" y1="242" x2="565" y2="294"/>
+  <ellipse cx="460" cy="294" rx="105" ry="14"/>
+  <ellipse cx="460" cy="242" rx="105" ry="14"/>
+</g>
+
+<g font-size="13.5" fill="#1A1A1A" text-anchor="middle">
+  <text x="207" y="52">First source</text><text x="207" y="68">what it is</text>
+  <text x="459" y="52">Second source</text><text x="459" y="68">what it is</text>
+  <text x="711" y="52">Third source</text><text x="711" y="68">what it is</text>
+  <text x="460" y="169">Entry point</text><text x="460" y="186">what it does</text>
+  <text x="460" y="269">Store</text>
+  <text x="460" y="363">A step</text><text x="460" y="379">what it does</text>
+  <text x="460" y="458">A decision?</text><text x="460" y="475">what it weighs</text>
+  <text x="765" y="458">The other branch</text><text x="765" y="475">what happens there</text>
+</g>
+
+<g stroke="#4D4D4D" stroke-width="1.2" fill="none" marker-end="url(#a)">
+  <path d="M207 82 Q207 120 330 158"/>
+  <path d="M459 82 L459 140"/>
+  <path d="M711 82 Q711 120 590 158"/>
+  <path d="M460 200 L460 234"/>
+  <path d="M460 308 L460 334"/>
+  <path d="M460 388 L460 428"/>
+  <path d="M585 462 L644 462"/>
+</g>
+
+<g stroke="#8C8C8C" stroke-width="1.1" fill="none" stroke-dasharray="4 4" marker-end="url(#a)">
+  <path d="M300 560 L200 560 L200 268 L349 268"/>
+</g>
+
+<g font-size="12" fill="#4D4D4D">
+  <text x="205" y="258">a feedback path</text>
+  <text x="606" y="454">no</text>
+  <text x="476" y="420">yes</text>
+</g>
+</svg>

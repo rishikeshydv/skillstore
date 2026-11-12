@@ -1,0 +1,95 @@
+# LG Ad Solutions brand kit
+# Source: LGAds_Brand_Guideline-25.pdf. Page references below point at that
+# document. Re-derive this file from a new guideline PDF rather than
+# hand-editing values if the brand ever refreshes.
+
+colors:
+  # Primary palette (guideline p.9). Active Red is the brand's own accent
+  # color in the guideline itself — section labels, callouts, "the future of
+  # X" lines all use it on white backgrounds. That is the role it plays here:
+  # headings and emphasis, not large fills.
+  active_red: "FD312E"
+  # Heritage Red (p.9) is the darker of the two reds — enough contrast for
+  # white text on a filled background. Used for table headers and the
+  # footer page-number block, where Active Red would be too bright to read
+  # against comfortably at that size.
+  heritage_red: "A50034"
+  lg_white: "FFFFFF"
+  lg_black: "000000"
+
+  # Secondary palette (p.10). The guideline scopes these to "supporting
+  # graphic elements, icons, charts and graphics" — not text, not logos.
+  # Available for diagram accents; not used as defaults anywhere in this
+  # skill.
+  magenta: "890665"
+  plum: "540070"
+  electric_purple: "4400D2"
+  oneteam_purple: "3C008D"
+
+  # Not brand colors. Used for body copy and diagram boxes, where the
+  # guideline is silent — full-color diagrams and long paragraphs of red
+  # text both fight legibility. Neutral ink and grey read as intentional
+  # restraint next to a red heading, not as an oversight.
+  body_text: "1B2430"
+  body_grey: "5A6673"
+
+usage_rules:
+  # p.9: "should be used with consistency ... to build and deliver a strong
+  # visual identity." Both reds are primary; white and black are the two
+  # backgrounds a plain logo is approved for without alteration.
+  - "Active Red and Heritage Red are the primary palette. Use them consistently, not interchangeably with the secondary palette."
+  # p.10: secondary colors are for supporting graphics only.
+  - "Magenta, Plum, Electric Purple and OneTeam Purple are for charts, icons and supporting graphics — never for body text or logo recoloring."
+  # p.10: tints are for data visualization, used sparingly.
+  - "Tints of Active Red exist for data visualization. Reach for them only when a chart genuinely needs more series than the primary palette covers."
+
+fonts:
+  # p.13-19. LG EI Headline / LG EI Text are LG's proprietary in-house
+  # typefaces. No font files were provided with the logos, and Word/OOXML
+  # documents only ever *reference* a font by name — the reader's machine
+  # supplies the actual rendering. Naming a font nobody has installed just
+  # means Word silently substitutes something anyway.
+  #
+  # The guideline itself anticipates this (p.18): "In certain instances
+  # that LG EI may be unavailable, Roboto may be used ... approved by the
+  # Marketing Team." An internally-circulated engineering proposal is
+  # exactly that instance, so this skill defaults straight to the
+  # sanctioned fallback rather than naming a font that isn't there.
+  #
+  # If real LG EI font files are ever supplied, change `body` and `heading`
+  # below — render_docx.js reads this file, nothing else needs to change.
+  heading: "Roboto"
+  body: "Roboto"
+  fallback: "Arial"
+
+logo:
+  # p.4. Both variants ship as SVG (vector, for anything that isn't Word)
+  # and as PNG (raster, for docx embedding — see render_docx.js).
+  black:
+    svg: "logo_black.svg"
+    png: "logo_black.png"
+    use_on: "white or light backgrounds"
+  white:
+    svg: "logo_white.svg"
+    png: "logo_white.png"
+    use_on: "black or dark backgrounds"
+  aspect_ratio: "137:15"   # ~9.13:1, from the source SVG viewBox
+  clear_space: "0.3x the logo's cap height, on all sides (p.4)"
+  minimum_height_mm: 3     # p.4
+  rules:
+    # p.4, p.6. Encoded here so a future edit to render_docx.js doesn't
+    # accidentally violate one while making the header "look nicer."
+    - "Never recolor the logo. Use the black or white file as supplied."
+    - "Never add a shadow, outline, or stroke effect."
+    - "Never place it on a background of similar value to the logo color, or on a patterned background."
+    - "Never change its proportions. Scale width and height together."
+    - "Maintain the 0.3x clear space on all sides — do not let text or rules touch it."
+    - "Below 3mm printed height it is not considered legible — do not scale below that."
+
+document_defaults:
+  # What render_docx.js actually applies unless a content spec overrides it.
+  heading_color: "FD312E"       # active_red
+  table_header_fill: "A50034"   # heritage_red
+  rule_color: "A50034"          # heritage_red
+  logo_variant: "black"         # documents in this skill are white-page proposals
+  footer_accent_fill: "A50034"  # heritage_red
